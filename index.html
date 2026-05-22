@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#DCDCFA" />
+  <title>BayBloom · Birthday Gift</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #DCDCFA;
+      --bg-deep: #C9C9F5;
+      --ink: #1B2EE5;
+      --ink-soft: #5C6BEF;
+      --ink-muted: #8B95F2;
+      --card: #FFFFFF;
+      --heart: #E62B2B;
+      --peach-1: #FFB07C;
+      --peach-2: #FF8B6B;
+      --peach-3: #FF6F94;
+      --radius-lg: 22px;
+      --radius-xl: 28px;
+      --radius-pill: 999px;
+      --shadow-sm: 0 2px 8px rgba(27, 46, 229, 0.06);
+      --shadow-md: 0 6px 20px rgba(27, 46, 229, 0.08);
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 20px 20px 40px;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    /* ============ HEADER ============ */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .logo-slot {
+      width: 96px;
+      height: 56px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .welcome {
+      flex: 1;
+      text-align: right;
+      padding-right: 12px;
+    }
+    .welcome h2 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.2px;
+    }
+    .welcome p {
+      margin: 2px 0 0;
+      font-size: 13px;
+      color: var(--ink-soft);
+      font-weight: 400;
+    }
+
+    .avatar-slot {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 3px solid var(--ink);
+      background: var(--bg-deep);
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .avatar-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 35% 28%;
+    }
+
+    /* ============ HERO HEADLINE ============ */
+    .hero-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 8vw, 36px);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      color: var(--ink);
+      margin: 12px 0 28px;
+    }
+
+    /* ============ STATS BAR ============ */
+    .stats {
+      background: var(--card);
+      border-radius: var(--radius-pill);
+      padding: 14px 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .stat {
+      text-align: center;
+      font-size: 13px;
+      color: var(--ink);
+      font-weight: 500;
+      position: relative;
+      line-height: 1.3;
+    }
+    .stat + .stat::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 28px;
+      background: var(--ink);
+      opacity: 0.5;
+    }
+    .stat-value {
+      display: block;
+      color: var(--ink-muted);
+      font-size: 13px;
+      margin-top: 2px;
+      font-weight: 500;
+    }
+    .stat-heart {
+      color: var(--heart);
+      font-size: 16px;
+      line-height: 1;
+      margin-top: 4px;
+      display: inline-block;
+    }
+
+    /* ============ SECTION TITLES ============ */
+    .section-title {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ink);
+      margin: 0 0 14px;
+      letter-spacing: -0.2px;
+    }
+
+    /* ============ GIFT CARDS ============ */
+    .gift-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .gift-card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 10px 10px 16px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease;
+    }
+    .gift-card:active { transform: scale(0.98); }
+
+    .gift-image-slot {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--bg-deep) 0%, #B8B8F0 100%);
+      margin-bottom: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--ink);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+    .gift-image-slot::after {
+      content: attr(data-placeholder);
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px;
+    }
+    .gift-image-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+    }
+    .gift-image-slot:has(img)::after { display: none; }
+
+    .gift-count {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: 34px;
+      color: var(--ink);
+      line-height: 1;
+      padding: 0 4px;
+      letter-spacing: -1.5px;
+    }
+    .gift-label {
+      font-size: 15px;
+      color: var(--ink);
+      font-weight: 400;
+      padding: 4px 4px 0;
+      margin: 0;
+    }
+
+    /* ============ DELIVERY CARD ============ */
+    .delivery-card {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-md);
+      background-color: var(--peach-2);
+      aspect-ratio: 718 / 480;
+      padding: 18px 18px 16px;
+      color: white;
+    }
+
+    /* Background image (with woman + flowers + heart baked in) */
+    .delivery-bg-slot {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .delivery-bg-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .delivery-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .delivery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: auto;
+    }
+    .delivery-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: 26px;
+      color: var(--ink);
+      line-height: 1;
+      letter-spacing: -0.8px;
+      margin: 0;
+    }
+    .delivery-subtitle {
+      font-size: 15px;
+      color: white;
+      margin: 4px 0 0;
+      font-weight: 400;
+    }
+
+    /* Invisible tap target over the heart that's baked into the background image */
+    .fav-heart {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      transition: transform 0.15s ease, background 0.2s ease;
+      font-size: 0;
+      color: transparent;
+      z-index: 2;
+    }
+    .fav-heart:active { transform: scale(1.25); }
+    .fav-heart.inactive {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(2px);
+    }
+
+    /* Date picker */
+    .date-picker {
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 18px;
+      padding: 16px 14px;
+      margin-top: auto;
+    }
+    .date-picker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+    .month-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+    }
+    .month-nav button {
+      background: none;
+      border: none;
+      color: var(--ink);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0 2px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .month-name { min-width: 50px; text-align: center; font-weight: 700; }
+
+    .days-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .days-scroll::-webkit-scrollbar { display: none; }
+
+    .day-btn {
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 0;
+      scroll-snap-align: start;
+      font-family: inherit;
+    }
+    .day-name {
+      font-size: 12px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .day-num {
+      background: var(--card);
+      color: var(--ink);
+      border: 2.5px solid var(--ink);
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      transition: all 0.15s ease;
+    }
+    .day-btn:active .day-num { transform: scale(0.92); }
+    .day-btn.selected .day-num {
+      background: var(--ink);
+      color: white;
+      box-shadow: 0 4px 12px rgba(27, 46, 229, 0.4);
+    }
+
+    /* ============ MESSAGE ============ */
+    .message-label {
+      font-size: 17px;
+      color: var(--ink);
+      font-weight: 400;
+      margin: 0 0 10px;
+    }
+    .message-input {
+      width: 100%;
+      min-height: 90px;
+      background: var(--card);
+      border: none;
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--ink);
+      resize: none;
+      box-shadow: var(--shadow-sm);
+      outline: none;
+      transition: box-shadow 0.2s ease;
+    }
+    .message-input:focus { box-shadow: 0 0 0 2px var(--ink), var(--shadow-sm); }
+    .message-input::placeholder { color: var(--ink-muted); }
+
+    /* ============ BOOK BUTTON ============ */
+    .book-btn {
+      display: block;
+      width: 70%;
+      max-width: 280px;
+      margin: 32px auto 0;
+      background: var(--ink);
+      color: white;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 18px 24px;
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(27, 46, 229, 0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .book-btn:active {
+      transform: scale(0.97) translateY(1px);
+      box-shadow: 0 3px 10px rgba(27, 46, 229, 0.3);
+    }
+    .book-btn.booked {
+      background: #2BB673;
+      box-shadow: 0 6px 20px rgba(43, 182, 115, 0.3);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(calc(100% + 60px));
+      opacity: 0;
+      background: var(--ink);
+      color: white;
+      padding: 14px 22px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      transition: transform 0.28s ease-in, opacity 0.2s ease-in;
+      z-index: 100;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease-out;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="header">
+    <div class="logo-slot">
+      <img class="logo-img" src="logo.png" alt="BayBloom" />
+    </div>
+    <div class="welcome">
+      <h2>Welcome, Birthday Girl</h2>
+      <p>Place your flower delivery order</p>
+    </div>
+    <div class="avatar-slot">
+      <img src="avatar.png" alt="" />
+    </div>
+  </header>
+
+  <!-- ========== HERO HEADLINE ========== -->
+  <h1 class="hero-title">When she says she wants flowers, this is what she means...</h1>
+
+  <!-- ========== STATS ========== -->
+  <div class="stats">
+    <div class="stat">
+      Placed Orders
+      <span class="stat-value" id="ordersStat">0/3</span>
+    </div>
+    <div class="stat">
+      Your Favorites
+      <span class="stat-heart">♥</span>
+    </div>
+    <div class="stat">
+      Your Notes
+      <span class="stat-value" id="notesStat">0/3</span>
+    </div>
+  </div>
+
+  <!-- ========== GIFT INCLUDES ========== -->
+  <h3 class="section-title">Your Birthday Gift includes ...</h3>
+  <div class="gift-grid">
+    <div class="gift-card">
+      <div class="gift-image-slot">
+        <img src="flower.png" alt="" />
+      </div>
+      <div class="gift-count">3x</div>
+      <p class="gift-label">flower delivery</p>
+    </div>
+    <div class="gift-card">
+      <div class="gift-image-slot">
+        <img src="selfie.png" alt="" />
+      </div>
+      <div class="gift-count">3x</div>
+      <p class="gift-label">time well spent</p>
+    </div>
+  </div>
+
+  <!-- ========== DELIVERY CARD ========== -->
+  <h3 class="section-title">Choose time and date for your next order</h3>
+  <div class="delivery-card">
+    <div class="delivery-bg-slot">
+      <img src="delivery.png" alt="" />
+    </div>
+    <div class="delivery-content">
+      <div class="delivery-header">
+        <div>
+          <h4 class="delivery-title">Bestie (Nina)</h4>
+          <p class="delivery-subtitle">delivery girl</p>
+        </div>
+        <button class="fav-heart" id="favBtn" aria-label="Favorite">♥</button>
+      </div>
+
+      <div class="date-picker">
+        <div class="date-picker-header">
+          <span>Choose the date</span>
+          <div class="month-nav">
+            <button id="prevMonth" aria-label="Previous month">‹</button>
+            <span class="month-name" id="monthName">July</span>
+            <button id="nextMonth" aria-label="Next month">›</button>
+          </div>
+        </div>
+        <div class="days-scroll" id="daysScroll"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MESSAGE ========== -->
+  <p class="message-label">Your message</p>
+  <textarea class="message-input" id="messageInput" placeholder="Write something sweet..."></textarea>
+
+  <!-- ========== BOOK BUTTON ========== -->
+  <button class="book-btn" id="bookBtn">BOOK NOW</button>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ============ STATE ============
+    const state = {
+      months: ['January', 'February', 'March', 'April', 'May', 'June',
+               'July', 'August', 'September', 'October', 'November', 'December'],
+      monthIndex: 6, // July (0-indexed)
+      year: 2026,
+      selectedDate: null,
+      favorited: true,
+      orders: 0,
+      notes: 0
+    };
+
+    const dayNamesShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    // ============ DOM ============
+    const monthNameEl = document.getElementById('monthName');
+    const daysScrollEl = document.getElementById('daysScroll');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    const favBtn = document.getElementById('favBtn');
+    const bookBtn = document.getElementById('bookBtn');
+    const messageInput = document.getElementById('messageInput');
+    const ordersStat = document.getElementById('ordersStat');
+    const notesStat = document.getElementById('notesStat');
+    const toast = document.getElementById('toast');
+
+    // ============ RENDER DAYS ============
+    function renderDays() {
+      monthNameEl.textContent = state.months[state.monthIndex];
+      daysScrollEl.innerHTML = '';
+
+      const daysInMonth = new Date(state.year, state.monthIndex + 1, 0).getDate();
+      const today = new Date();
+      const isCurrentMonth = today.getFullYear() === state.year && today.getMonth() === state.monthIndex;
+      const startDay = isCurrentMonth ? today.getDate() : 1;
+
+      for (let d = startDay; d <= daysInMonth; d++) {
+        const dateObj = new Date(state.year, state.monthIndex, d);
+        const dayName = dayNamesShort[dateObj.getDay()];
+        const btn = document.createElement('button');
+        btn.className = 'day-btn';
+        btn.dataset.date = `${state.year}-${state.monthIndex + 1}-${d}`;
+        btn.innerHTML = `
+          <span class="day-name">${dayName}</span>
+          <span class="day-num">${d}</span>
+        `;
+        if (state.selectedDate === btn.dataset.date) btn.classList.add('selected');
+        btn.addEventListener('click', () => selectDate(btn));
+        daysScrollEl.appendChild(btn);
+      }
+    }
+
+    function selectDate(btn) {
+      document.querySelectorAll('.day-btn.selected').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      state.selectedDate = btn.dataset.date;
+    }
+
+    // ============ MONTH NAV ============
+    prevMonthBtn.addEventListener('click', () => {
+      state.monthIndex--;
+      if (state.monthIndex < 0) {
+        state.monthIndex = 11;
+        state.year--;
+      }
+      renderDays();
+    });
+
+    nextMonthBtn.addEventListener('click', () => {
+      state.monthIndex++;
+      if (state.monthIndex > 11) {
+        state.monthIndex = 0;
+        state.year++;
+      }
+      renderDays();
+    });
+
+    // ============ FAVORITE ============
+    favBtn.addEventListener('click', () => {
+      state.favorited = !state.favorited;
+      favBtn.classList.toggle('inactive', !state.favorited);
+    });
+
+    // ============ BOOK ============
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+
+    bookBtn.addEventListener('click', () => {
+      const hasDate = !!state.selectedDate;
+      const hasMessage = messageInput.value.trim().length > 0;
+
+      if (!hasDate && !hasMessage) {
+        showToast('Datum & Nachricht fehlen 📅 ✏️');
+        return;
+      }
+      if (!hasDate) {
+        showToast('Bitte wähle ein Datum 📅');
+        return;
+      }
+      if (!hasMessage) {
+        showToast('Bitte schreibe eine Nachricht ✏️');
+        messageInput.focus();
+        return;
+      }
+      if (state.orders >= 3) {
+        showToast('Alle 3 Lieferungen schon gebucht 💐');
+        return;
+      }
+
+      state.orders++;
+      ordersStat.textContent = `${state.orders}/3`;
+
+      state.notes = Math.min(state.notes + 1, 3);
+      notesStat.textContent = `${state.notes}/3`;
+      messageInput.value = '';
+
+      bookBtn.classList.add('booked');
+      bookBtn.textContent = 'BOOKED ✓';
+      const dateStr = new Date(state.selectedDate).toLocaleDateString('de-DE', {
+        weekday: 'long', day: 'numeric', month: 'long'
+      });
+      showToast(`Gebucht für ${dateStr} 💐`);
+
+      setTimeout(() => {
+        bookBtn.classList.remove('booked');
+        bookBtn.textContent = 'BOOK NOW';
+        document.querySelectorAll('.day-btn.selected').forEach(b => b.classList.remove('selected'));
+        state.selectedDate = null;
+      }, 2200);
+    });
+
+    // ============ INIT ============
+    renderDays();
+  </script>
+</body>
+</html>
