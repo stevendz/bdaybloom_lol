@@ -257,9 +257,11 @@
       margin-bottom: 32px;
       box-shadow: var(--shadow-md);
       background-color: var(--peach-2);
-      aspect-ratio: 718 / 480;
+      min-height: 380px;
       padding: 18px 18px 16px;
       color: white;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Background image (with woman + flowers + heart baked in) */
@@ -280,7 +282,8 @@
       z-index: 1;
       display: flex;
       flex-direction: column;
-      height: 100%;
+      flex: 1;
+      min-height: 0;
     }
 
     .delivery-header {
@@ -312,7 +315,7 @@
       -webkit-backdrop-filter: blur(14px);
       border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 18px;
-      padding: 16px 14px;
+      padding: 14px 12px;
       margin-top: auto;
     }
     .date-picker-header {
@@ -344,12 +347,16 @@
 
     .days-scroll {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
-      scroll-snap-type: x mandatory;
+      overflow-y: hidden;
+      scroll-snap-type: x proximity;
       padding-bottom: 4px;
+      padding-right: 8px;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
+      touch-action: pan-x;
+      overscroll-behavior-x: contain;
     }
     .days-scroll::-webkit-scrollbar { display: none; }
 
@@ -367,7 +374,7 @@
       font-family: inherit;
     }
     .day-name {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--ink);
       font-weight: 600;
     }
@@ -376,13 +383,13 @@
       color: var(--ink);
       border: 2.5px solid var(--ink);
       border-radius: 50%;
-      width: 38px;
-      height: 38px;
+      width: 34px;
+      height: 34px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 15px;
+      font-size: 14px;
       transition: all 0.15s ease;
     }
     .day-btn:active .day-num { transform: scale(0.92); }
