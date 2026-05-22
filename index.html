@@ -305,29 +305,6 @@
       font-weight: 400;
     }
 
-    /* Invisible tap target over the heart that's baked into the background image */
-    .fav-heart {
-      position: absolute;
-      top: 8px;
-      right: 10px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      transition: transform 0.15s ease, background 0.2s ease;
-      font-size: 0;
-      color: transparent;
-      z-index: 2;
-    }
-    .fav-heart:active { transform: scale(1.25); }
-    .fav-heart.inactive {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(2px);
-    }
-
     /* Date picker */
     .date-picker {
       background: rgba(255, 255, 255, 0.22);
@@ -560,7 +537,6 @@
           <h4 class="delivery-title">Bestie (Nina)</h4>
           <p class="delivery-subtitle">delivery girl</p>
         </div>
-        <button class="fav-heart" id="favBtn" aria-label="Favorite">♥</button>
       </div>
 
       <div class="date-picker">
@@ -588,6 +564,10 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // ============ CONFIG ============
+    // Replace with your deployed Cloudflare Worker URL
+    const TELEGRAM_WORKER_URL = 'https://bdaybloom.webrabbits.workers.dev/';
+
     // ============ STATE ============
     const state = {
       months: ['January', 'February', 'March', 'April', 'May', 'June',
@@ -595,7 +575,6 @@
       monthIndex: 6, // July (0-indexed)
       year: 2026,
       selectedDate: null,
-      favorited: true,
       orders: 0,
       notes: 0
     };
@@ -607,7 +586,6 @@
     const daysScrollEl = document.getElementById('daysScroll');
     const prevMonthBtn = document.getElementById('prevMonth');
     const nextMonthBtn = document.getElementById('nextMonth');
-    const favBtn = document.getElementById('favBtn');
     const bookBtn = document.getElementById('bookBtn');
     const messageInput = document.getElementById('messageInput');
     const ordersStat = document.getElementById('ordersStat');
@@ -665,12 +643,6 @@
       renderDays();
     });
 
-    // ============ FAVORITE ============
-    favBtn.addEventListener('click', () => {
-      state.favorited = !state.favorited;
-      favBtn.classList.toggle('inactive', !state.favorited);
-    });
-
     // ============ BOOK ============
     function showToast(msg) {
       toast.textContent = msg;
@@ -679,7 +651,22 @@
       showToast._t = setTimeout(() => toast.classList.remove('show'), 2400);
     }
 
-    bookBtn.addEventListener('click', () => {
+    async function sendBookingToTelegram(dateStr, message) {
+      try {
+        const res = await fetch(TELEGRAM_WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ date: dateStr, message })
+        });
+        if (!res.ok) throw new Error(`Worker responded ${res.status}`);
+        return true;
+      } catch (err) {
+        console.error('Telegram send failed:', err);
+        return false;
+      }
+    }
+
+    bookBtn.addEventListener('click', async () => {
       const hasDate = !!state.selectedDate;
       const hasMessage = messageInput.value.trim().length > 0;
 
@@ -701,6 +688,25 @@
         return;
       }
 
+      const messageText = messageInput.value.trim();
+      const dateStr = new Date(state.selectedDate).toLocaleDateString('de-DE', {
+        weekday: 'long', day: 'numeric', month: 'long'
+      });
+
+      // Disable button while sending
+      bookBtn.disabled = true;
+      bookBtn.textContent = 'SENDING...';
+
+      const sent = await sendBookingToTelegram(dateStr, messageText);
+
+      bookBtn.disabled = false;
+
+      if (!sent) {
+        bookBtn.textContent = 'BOOK NOW';
+        showToast('Senden fehlgeschlagen – nochmal probieren ⚠️');
+        return;
+      }
+
       state.orders++;
       ordersStat.textContent = `${state.orders}/3`;
 
@@ -710,9 +716,6 @@
 
       bookBtn.classList.add('booked');
       bookBtn.textContent = 'BOOKED ✓';
-      const dateStr = new Date(state.selectedDate).toLocaleDateString('de-DE', {
-        weekday: 'long', day: 'numeric', month: 'long'
-      });
       showToast(`Gebucht für ${dateStr} 💐`);
 
       setTimeout(() => {
